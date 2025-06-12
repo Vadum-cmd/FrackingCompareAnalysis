@@ -1,0 +1,62 @@
+﻿<Page x:Class="FrekingCompareAnalysis.Pages.DataViewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FrekingCompareAnalysis.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DataViewPage">
+
+    <Page.Resources>
+        <!-- Стиль ComboBox, як у GraphPage -->
+        <Style x:Key="ModernComboBox" TargetType="ComboBox">
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+        </Style>
+        <!-- Стиль заголовку -->
+        <Style x:Key="SectionHeader" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="15" Background="#F8F9FA">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="White" 
+                BorderBrush="#E9ECEF" 
+                BorderThickness="1" 
+                CornerRadius="5" 
+                Padding="15"
+                Grid.Row="0"
+                Margin="0,0,0,10">
+            <StackPanel>
+                <TextBlock Text="Вибір файлу:" Style="{StaticResource SectionHeader}"/>
+                <ComboBox x:Name="FileComboBox"
+                          Width="250"
+                          Style="{StaticResource ModernComboBox}"
+                          SelectionChanged="FileComboBox_SelectionChanged"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" 
+                Background="White" 
+                BorderBrush="#E9ECEF" 
+                BorderThickness="1" 
+                CornerRadius="5" 
+                Padding="10">
+            <DataGrid x:Name="WellDataGrid"
+                      AutoGenerateColumns="True"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"/>
+        </Border>
+    </Grid>
+</Page>

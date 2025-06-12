@@ -1,0 +1,43 @@
+﻿<Window x:Class="FrekingCompareAnalysis.Pages.FileSelectionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Select Files for Favorable Conditions Analysis" 
+        Height="400" Width="500"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" 
+                   Text="Виберіть файли для аналізу ідеальних умов:" 
+                   FontWeight="Bold" 
+                   Margin="0,0,0,10"/>
+
+        <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Name="FileCheckBoxPanel" Margin="5"/>
+            </ScrollViewer>
+        </Border>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10">
+            <Button Name="BtnSelectAll" Content="Вибрати всі" Width="80" Height="30" Margin="0,0,10,0" Click="BtnSelectAll_Click"/>
+            <Button Name="BtnDeselectAll" Content="Скинути вибір" Width="80" Height="30" Click="BtnDeselectAll_Click"/>
+            <TextBlock Name="TxtSelectionCount" 
+                       Text="0 файлів вибрано" 
+                       VerticalAlignment="Center" 
+                       Margin="20,0,0,0"
+                       FontStyle="Italic"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Name="BtnOK" Content="OK" Width="80" Height="30" Margin="0,0,10,0" IsDefault="True" Click="BtnOK_Click"/>
+            <Button Name="BtnCancel" Content="Скасувати" Width="80" Height="30" IsCancel="True" Click="BtnCancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
