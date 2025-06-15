@@ -63,12 +63,9 @@ namespace FrekingCompareAnalysis.Services
                     slopes[name] = slope;
                 }
 
-                AnalyzeSlope("TrPress", r => r.TrPress);
-                AnalyzeSlope("AnPress", r => r.AnPress);
                 AnalyzeSlope("BhPress", r => r.BhPress);
                 AnalyzeSlope("SlurRate", r => r.SlurRate);
-                AnalyzeSlope("PropCon", r => r.PropCon);
-                AnalyzeSlope("BhPropCon", r => r.BhPropCon);
+                AnalyzeSlope("CfldRate", r => r.CfldRate);
                 AnalyzeSlope("NetPress", r => r.NetPress);
 
                 conditions.Add(new FractureCondition
@@ -115,12 +112,9 @@ namespace FrekingCompareAnalysis.Services
                 slopes[name] = slope;
             }
 
-            AnalyzeSlope("TrPress", r => r.TrPress);
-            AnalyzeSlope("AnPress", r => r.AnPress);
             AnalyzeSlope("BhPress", r => r.BhPress);
             AnalyzeSlope("SlurRate", r => r.SlurRate);
-            AnalyzeSlope("PropCon", r => r.PropCon);
-            AnalyzeSlope("BhPropCon", r => r.BhPropCon);
+            AnalyzeSlope("CfldRate", r => r.CfldRate);
             AnalyzeSlope("NetPress", r => r.NetPress);
 
             return slopes;

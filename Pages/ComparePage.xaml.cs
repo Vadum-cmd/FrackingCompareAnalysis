@@ -13,9 +13,11 @@ namespace FrekingCompareAnalysis.Pages
     {
         private readonly Dictionary<string, List<WellDataRecord>> _loadedData;
         private FracturePredictionModule _fracturePredictionModule;
+        private HausdorffDist _hausdorffDist;
         private Dictionary<string, double> _favorableConditions = new();
         private List<DateTime> _breakdownsDarcy = new();
         private List<DateTime> _breakdownsTrend = new();
+        private double _dist;
 
         // Maximum number of points after resampling
         private const int MaxPoints = 200;
@@ -28,6 +30,7 @@ namespace FrekingCompareAnalysis.Pages
             InitializeComponent();
             _loadedData = loadedData;
             _fracturePredictionModule = new FracturePredictionModule();
+            _hausdorffDist = new HausdorffDist();
 
             InitializeChart();
             PopulateFileComboBox();
@@ -238,6 +241,9 @@ namespace FrekingCompareAnalysis.Pages
                 // Resample breakdowns to match resampled data
                 _breakdownsDarcy = ResampleBreakdowns(originalBreakdownsDarcy, originalFileData, fileData);
                 _breakdownsTrend = ResampleBreakdowns(originalBreakdownsTrend, originalFileData, fileData);
+
+                _dist = _hausdorffDist.GetHausdorffDist(originalBreakdownsDarcy, originalBreakdownsTrend);
+                AccuracyInfo.Text = $"Відстань Хаусдорфа: {_dist:F2} сек";
 
                 // Update breakdown info
                 var dataInfo = originalFileData.Count > MaxPoints
