@@ -216,7 +216,7 @@
 
                     <!-- Графік -->
                     <lvc:CartesianChart x:Name="TimeChart"
-                                        LegendLocation="Right"
+                                        LegendLocation="None"
                                         Margin="10"
                                         AnimationsSpeed="0:0:0.3">
                         <lvc:CartesianChart.AxisX>
@@ -226,10 +226,10 @@
                                       FontSize="10"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Тиск при обробці (psi)" 
+                            <lvc:Axis Title="Шкала 1" 
                                       Foreground="#333"
                                       FontSize="10"/>
-                            <lvc:Axis Title="Швидкість подачі суспензії (bbl/min)" 
+                            <lvc:Axis Title="Шкала 2" 
                                       Position="RightTop" 
                                       Foreground="#E53935"
                                       FontSize="10"/>

@@ -136,7 +136,7 @@ namespace FrekingCompareAnalysis.Pages
             }
             catch (Exception ex)
             {
-                ShowError($"Error changing file selection: {ex.Message}");
+                ShowError($"Помилка зміни вибору файлу: {ex.Message}");
             }
         }
 
@@ -151,7 +151,7 @@ namespace FrekingCompareAnalysis.Pages
             }
             catch (Exception ex)
             {
-                ShowError($"Error updating parameters: {ex.Message}");
+                ShowError($"Помилка оновлення параметрів: {ex.Message}");
             }
         }
 
@@ -163,7 +163,7 @@ namespace FrekingCompareAnalysis.Pages
             }
             catch (Exception ex)
             {
-                ShowError($"Error selecting all parameters: {ex.Message}");
+                ShowError($"Помилка вибору всіх параметрів: {ex.Message}");
             }
         }
 
@@ -175,7 +175,7 @@ namespace FrekingCompareAnalysis.Pages
             }
             catch (Exception ex)
             {
-                ShowError($"Error clearing parameter selection: {ex.Message}");
+                ShowError($"Помилка очищення вибору параметрів: {ex.Message}");
             }
         }
 
@@ -190,7 +190,7 @@ namespace FrekingCompareAnalysis.Pages
             }
             catch (Exception ex)
             {
-                ShowError($"Error updating chart options: {ex.Message}");
+                ShowError($"Помилка оновлення налаштувань графіка: {ex.Message}");
             }
         }
 
@@ -201,20 +201,20 @@ namespace FrekingCompareAnalysis.Pages
                 var saveDialog = new SaveFileDialog
                 {
                     Filter = "PNG Image|*.png|JPEG Image|*.jpg",
-                    Title = "Save Chart Image",
+                    Title = "Зберегти графік як зображення",
                     FileName = $"WellDataChart_{DateTime.Now:yyyyMMdd_HHmmss}"
                 };
 
                 if (saveDialog.ShowDialog() == true)
                 {
                     ExportChart(saveDialog.FileName);
-                    MessageBox.Show("Chart exported successfully!", "Export Complete",
+                    MessageBox.Show("Графік експортовано успішно!", "Експорт завершено",
                                   MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
-                ShowError($"Error exporting chart: {ex.Message}");
+                ShowError($"Помилка! Не вдалось експортувати: {ex.Message}");
             }
         }
 
@@ -249,7 +249,7 @@ namespace FrekingCompareAnalysis.Pages
                 {
                     TimeChart.Series.Clear();
                     NoDataMessage.Visibility = Visibility.Visible;
-                    ChartSubtitleText.Text = "Select parameters to display data";
+                    ChartSubtitleText.Text = "Виберіть параметри для відображення";
                 });
                 return;
             }
@@ -263,7 +263,7 @@ namespace FrekingCompareAnalysis.Pages
                 // Ресемплінг даних
                 var (resampledTimes, resampledValues) = ResampleData(chartData.times, chartData.values);
 
-                // Detect fracture moments
+                // Знайти тріщиноутворення
                 var fractureMoments = await Task.Run(() => _breakdownDetector.DetectFractureMoments(data));
 
                 Dispatcher.Invoke(() => UpdateChartUI((resampledTimes, resampledValues), selectedParameters, data, fractureMoments));
@@ -333,7 +333,7 @@ namespace FrekingCompareAnalysis.Pages
             TimeChart.Series.Clear();
             NoDataMessage.Visibility = Visibility.Collapsed;
 
-            // Add parameter series
+            // Додати параметри до ряду
             for (int i = 0; i < selectedParameters.Count; i++)
             {
                 var param = selectedParameters[i];
@@ -356,11 +356,11 @@ namespace FrekingCompareAnalysis.Pages
             if (ShowFracturesCheckBox.IsChecked == true)
                 AddFractureLines(originalData, fractureMoments);
 
-            // Update subtitle
-            var subtitle = $"Parameters displayed: {string.Join(", ", selectedParameters)}";
+            // Оновити підпис
+            var subtitle = $"Параметрів показано: {string.Join(", ", selectedParameters)}";
             if (fractureMoments.Count > 0 && ShowFracturesCheckBox.IsChecked == true)
             {
-                subtitle += $" | Fractures detected: {fractureMoments.Count}";
+                subtitle += $" | Тріщин виявлено: {fractureMoments.Count}";
             }
             ChartSubtitleText.Text = subtitle;
         }
@@ -410,7 +410,7 @@ namespace FrekingCompareAnalysis.Pages
                         // Create vertical line as a line series with two points
                         var fractureLine = new LineSeries
                         {
-                            Title = $"Fracture {fractureMoments.IndexOf(fractureMoment) + 1}",
+                            Title = null,
                             Stroke = new SolidColorBrush(Colors.Red),
                             StrokeThickness = 2,
                             StrokeDashArray = new System.Windows.Media.DoubleCollection { 5, 5 }, // Dashed line
