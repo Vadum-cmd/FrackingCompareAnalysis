@@ -29,6 +29,14 @@ namespace FrekingCompareAnalysis.Services
             if (data == null || data.Count < 2)
                 return result;
 
+            _settings.ReservoirPressure = data
+                .Where(r => r.SlurRate < 0.1)
+                .Select(r => r.BhPress)
+                .DefaultIfEmpty(3000)
+                .Average();
+            _settings.MinRateThreshold = Math.Max(0.1, data.Average(r => r.SlurRate) * 0.1);
+            _settings.FluidViscosity = data.Average(r => r.PcmGuarConc) > 1 ? 3.0 : 1.0;
+
             int startIndex = (int)(data.Count * _settings.DataSkipProportion);
             int endIndex = data.Count - (int)(data.Count * _settings.DataSkipProportion / 2);
 
